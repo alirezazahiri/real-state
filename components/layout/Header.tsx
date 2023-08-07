@@ -10,7 +10,7 @@ const links = [
 
 function Header() {
   return (
-    <header className="relative bg-blue-800 transitionfont-bold px-2 py-3 lg:px-4 rounded-b-md">
+    <header className="sticky top-0 bg-blue-800 transitionfont-bold px-2 py-3 lg:px-4 rounded-b-md">
       <BurgerMenu links={links} />
       <div className="absolute top-4 lg:top-1/2 lg:-translate-y-1/2 left-2 text-xl font-bold cursor-pointer">
         <Link

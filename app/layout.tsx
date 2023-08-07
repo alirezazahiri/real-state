@@ -19,7 +19,7 @@ export default function RootLayout({
       <body
         className={[
           YekanBakhFont.className,
-          "container mx-auto lg:max-w-[1200px]",
+          "container mx-auto lg:max-w-[1200px] bg-slate-100",
         ].join(" ")}
       >
         <Header />
