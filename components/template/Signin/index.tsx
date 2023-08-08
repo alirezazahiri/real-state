@@ -12,11 +12,11 @@ import React, {
 import { Toaster, toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { ThreeDots } from "react-loader-spinner";
+import { signIn } from "next-auth/react";
 
-function Signup() {
+function Signin() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
 
@@ -30,25 +30,17 @@ function Signup() {
   const submitHandler = async (e: FormEvent) => {
     setLoading(true);
     e.preventDefault();
-    if (password !== confirmPassword)
-      return toast.error("رمز و تکرار آن یکسان نیستند.");
 
-    const res = await fetch("/api/auth/signup", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-      headers: {
-        "Content-Type": "application/json",
-      },
+    const res = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
     });
-
-    const data = await res.json();
-    console.log(res.status);
-
-    if (res.status == 201) {
-      router.push("/signin");
-      toast.success(data.message);
+    if (res.error) {
+        toast.error(res.error);
     } else {
-      toast.error(data.error);
+        router.push("/");
+        toast.success("با موفقیت وارد شدید");
     }
     setLoading(false);
   };
@@ -56,7 +48,7 @@ function Signup() {
   return (
     <div className="flex flex-col items-center h-screen justify-center gap-4">
       <h1 className="text-blue-800 font-bold text-xl tracking-wide">
-        فرم ثبت نام
+        فرم ورود
       </h1>
       <form
         onSubmit={submitHandler}
@@ -82,16 +74,6 @@ function Signup() {
             onChange={changeHandler(setPassword)}
           />
         </div>
-        <div className="flex flex-col gap-2 [&>input]:border-2 [&>input]:border-blue-200 [&>input]:rounded-sm [&>input]:p-1 [&>input]:text-blue-800 [&>input]:outline-none [&>label]:text-blue-600 [&>label]:font-semibold">
-          <label htmlFor="confirmPassword">تایید گذرواژه:</label>
-          <input
-            type="password"
-            name="confirmPassword"
-            id="confirmPassword"
-            value={confirmPassword}
-            onChange={changeHandler(setConfirmPassword)}
-          />
-        </div>
         {loading ? (
           <ThreeDots
             color="#304ffe"
@@ -104,19 +86,19 @@ function Signup() {
           <button
             type="submit"
             className="bg-blue-800 text-white border border-blue-800 p-1 rounded-sm transition hover:text-blue-800 hover:bg-white disabled:bg-slate-400 disabled:border-slate-500 disabled:text-slate-50 disabled:cursor-not-allowed font-bold"
-            disabled={!(email && password && confirmPassword)}
+            disabled={!(email && password)}
           >
-            ثبت نام
+            ورود
           </button>
         )}
       </form>
       <div className="flex gap-1">
-        <p>حساب کاربری دارید؟</p>
+        <p>ثبت نام نکرده اید؟</p>
         <Link
-          href="/signin"
+          href="/signup"
           className="text-sm font-bold border-b-4 border-slate-600 text-blue-800"
         >
-          ورود
+          ثبت نام
         </Link>
       </div>
       <Toaster />
@@ -124,4 +106,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default Signin;

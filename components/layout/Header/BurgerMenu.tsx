@@ -15,14 +15,14 @@ function BurgerMenu({ links }: { links: { name: string; href: string }[] }) {
         <ul
           className={
             (isOpen ? "flex flex-col" : "hidden") +
-            " lg:flex gap-4 lg:bg-inherit mt-2 transition-transform"
+            " lg:flex gap-4 lg:bg-inherit mt-2 transition-transform pr-2"
           }
         >
           {links.map((link, index) => (
             <li
               key={link.href}
-              className="animate-fade-in-x opacity-0 transition text-slate-200 hover:text-white lg:animate-none lg:opacity-100"
-              style={{ animationDelay: `${0.03 + index * 0.05}s` }}
+              className="animate-fade-in-x opacity-0 transition-all text-slate-200 hover:text-white lg:animate-none lg:opacity-100 w-fit underline-offset-4 hover:underline"
+              style={{ animationDelay: `${0.01 + index * 0.005}s` }}
             >
               <Link href={link.href}>{link.name}</Link>
             </li>

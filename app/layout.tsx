@@ -1,7 +1,7 @@
-import Header from "@/components/layout/Header";
 import "./globals.css";
 import { YekanBakhFont } from "@/utils/fonts";
-import Footer from "@/components/layout/Footer";
+import Layout from "@/components/layout";
+import NextAuthProvider from "@/providers/NextAuthProvider";
 
 export const metadata = {
   title: "خرید و فروش املاک",
@@ -22,9 +22,9 @@ export default function RootLayout({
           "container mx-auto lg:max-w-[1200px] bg-slate-100",
         ].join(" ")}
       >
-        <Header />
-        <div className="pt-[10px] min-h-screen">{children}</div>
-        <Footer />
+        <NextAuthProvider>
+          <Layout>{children}</Layout>
+        </NextAuthProvider>
       </body>
     </html>
   );
