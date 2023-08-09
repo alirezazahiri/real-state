@@ -15,7 +15,7 @@ function BurgerMenu({ links }: { links: { name: string; href: string }[] }) {
         <ul
           className={
             (isOpen ? "flex flex-col" : "hidden") +
-            " lg:flex gap-4 lg:bg-inherit mt-2 transition-transform pr-2"
+            " lg:flex gap-4 lg:bg-inherit mt-2 pr-2"
           }
         >
           {links.map((link, index) => (

@@ -1,6 +1,6 @@
 import "./globals.css";
 import { YekanBakhFont } from "@/utils/fonts";
-import Layout from "@/components/layout";
+import RootLayout from "@/components/layout/root";
 import NextAuthProvider from "@/providers/NextAuthProvider";
 
 export const metadata = {
@@ -9,7 +9,7 @@ export const metadata = {
   icons: { icon: "./favicon.ico" },
 };
 
-export default function RootLayout({
+export default function Layout({
   children,
 }: {
   children: React.ReactNode;
@@ -23,7 +23,7 @@ export default function RootLayout({
         ].join(" ")}
       >
         <NextAuthProvider>
-          <Layout>{children}</Layout>
+          <RootLayout>{children}</RootLayout>
         </NextAuthProvider>
       </body>
     </html>
