@@ -13,7 +13,7 @@ async function Sidebar() {
         <p className="font-semibold text-slate-500">{session?.user.email}</p>
       </div>
       <div className="py-6">
-        <ul className="[&>li>*]:font-semibold transition [&>li:hover]:underline underline-offset-4 flex flex-col gap-2">
+        <ul className="[&>li]:w-fit [&>li>*]:font-semibold transition [&>li:hover]:underline underline-offset-4 flex flex-col gap-2">
           <li>
             <Link href="/dashboard">حساب کاربری</Link>
           </li>

@@ -11,7 +11,7 @@ const links = [
 
 function Header() {
   return (
-    <header className="sticky top-1 bg-blue-800 transitionfont-bold px-2 py-3 lg:px-4 rounded-md ">
+    <header className="sticky top-1 bg-blue-800 transitionfont-bold px-2 py-3 lg:px-4 rounded-md z-10">
       <BurgerMenu links={links} />
       <LogInOutButton />
     </header>
