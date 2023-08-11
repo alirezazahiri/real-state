@@ -11,11 +11,11 @@ function BurgerMenu({ links }: { links: { name: string; href: string }[] }) {
       <div className="flex lg:hidden">
         <BurgerIcon toggle={() => setIsOpen((prev) => !prev)} isOpen={isOpen} />
       </div>
-      <nav className="container justify-between mx-auto bg-inherit transition-all">
+      <nav className="container justify-between mx-auto bg-inherit">
         <ul
           className={
-            (isOpen ? "flex flex-col" : "hidden") +
-            " lg:flex gap-4 lg:bg-inherit mt-2 pr-2"
+            (isOpen ? "flex flex-col lg:flex-row" : "hidden") +
+            " lg:flex gap-4  mt-2 pr-2 md:pr-0 md:mt-0 transition-all"
           }
         >
           {links.map((link, index) => (
