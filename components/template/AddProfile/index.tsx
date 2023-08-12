@@ -1,5 +1,6 @@
 "use client";
 
+import CustomDatePicker from "@/components/module/CustomDatePicker";
 import RadioList from "@/components/module/RadioList";
 import TextInput from "@/components/module/TextInput";
 import TextItem from "@/components/module/TextItem";
@@ -30,7 +31,8 @@ const RADIO_ITEMS = [
 
 function AddProfile() {
   const [profileData, setProfileData] = useState<Profile>(initialState);
-
+  console.log(profileData.constructionDate);
+  
   const changeHandler: React.ChangeEventHandler<
     HTMLTextAreaElement | HTMLInputElement
   > = (e) => {
@@ -45,6 +47,10 @@ function AddProfile() {
     setProfileData((prev) => ({ ...prev, [name]: values }));
   };
 
+  const datePickerChangeHandler = (date: Date) => {
+    setProfileData(prev => ({...prev, constructionDate: date}))
+  }
+
   const submitHandler: React.FormEventHandler = (e) => {
     e.preventDefault();
   };
@@ -54,7 +60,7 @@ function AddProfile() {
       <h3 className="bg-blue-100 text-blue-600 font-semibold p-2 rounded-md">
         فرم ثبت آگهی
       </h3>
-      <div className="flex flex-col gap-4 my-6">
+      <div className="flex flex-col gap-6 my-6">
         <TextInput
           label="عنوان آگهی"
           name="title"
@@ -111,7 +117,8 @@ function AddProfile() {
           values={profileData["rules"]}
           onChange={textListChangeHandler}
         />
-        <button className="text-white bg-blue-800 border border-blue-800 py-1 px-2 mt-4 rounded-md w-fit transition hover:text-blue-800 hover:bg-white">
+        <CustomDatePicker value={profileData["constructionDate"]} onChange={datePickerChangeHandler} />
+        <button className="text-white bg-blue-800 border border-blue-800 py-1 px-2 mt-4 rounded-md w-full transition hover:text-blue-800 hover:bg-white">
           ثبت آگهی
         </button>
       </div>
