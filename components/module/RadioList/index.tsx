@@ -13,7 +13,6 @@ interface Props {
 }
 
 function RadioList({ title, onChange, items, value }: Props) {
-  console.log({value, items})
   return (
     <fieldset className="flex flex-col gap-2">
       <span className="font-semibold">{title}</span>

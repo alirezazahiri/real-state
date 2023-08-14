@@ -10,8 +10,6 @@ interface Props {
 
 function CustomDatePicker({ value, onChange }: Props) {
     const changeHandler = (date: DateObject) => {
-        console.log(date);
-        
         onChange(date.toDate());
     }
   return (

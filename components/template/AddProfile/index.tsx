@@ -5,7 +5,7 @@ import RadioList from "@/components/module/RadioList";
 import TextInput from "@/components/module/TextInput";
 import TextItem from "@/components/module/TextItem";
 import TextList from "@/components/module/TextList";
-import { e2p, p2e } from "@/utils/number.utils";
+import { e2p, p2e, sp } from "@/utils/number.utils";
 import { Profile } from "@profile";
 import React, { useState } from "react";
 
@@ -36,11 +36,22 @@ function AddProfile() {
     HTMLTextAreaElement | HTMLInputElement
   > = (e) => {
     const { name, value } = e.target;
-    
+
     setProfileData((prevData) => ({
       ...prevData,
       [name]: p2e(value),
     }));
+  };
+  const changeNumberHandler: React.ChangeEventHandler<HTMLInputElement> = (
+    e
+  ) => {
+    const { name, value } = e.target;
+    if ("0123456789".includes(value.charAt(value.length - 1)) && value.length < 18) {
+      setProfileData((prevData) => ({
+        ...prevData,
+        [name]: p2e(value.replaceAll(",", '')),
+      }));
+    }
   };
 
   const textListChangeHandler = (name: string, values: string[]) => {
@@ -102,8 +113,8 @@ function AddProfile() {
         <TextInput
           label="قیمت (تومان)"
           name="price"
-          onChange={changeHandler}
-          value={profileData["price"]}
+          onChange={changeNumberHandler}
+          value={sp(Number(profileData["price"]))}
         />
         <TextInput
           label="بنگاه"
@@ -136,14 +147,16 @@ function AddProfile() {
         <button
           onClick={submitHandler}
           className="text-white bg-blue-800 border border-blue-800 py-1 px-2 mt-4 rounded-md w-full transition disabled:bg-slate-400 disabled:border-slate-500 disabled:text-slate-50 disabled:cursor-not-allowed hover:text-blue-800 hover:bg-white"
-          disabled={!profileData.title ||
+          disabled={
+            !profileData.title ||
             !profileData.description ||
             !profileData.address ||
             !profileData.phone ||
             !profileData.price ||
             !profileData.realState ||
             !profileData.constructionDate ||
-            !profileData.category}
+            !profileData.category
+          }
         >
           ثبت آگهی
         </button>
