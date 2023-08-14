@@ -1,4 +1,4 @@
-import { e2p, s2n } from "@/utils/number.utils";
+import { e2p, p2e } from "@/utils/number.utils";
 import React from "react";
 
 interface Props {
@@ -12,8 +12,6 @@ interface Props {
   containerClass?: string;
   labelClass?: string;
   inputClass?: string;
-  onlyNumeric?: boolean;
-  grouping?: boolean;
 }
 
 function TextInput({
@@ -25,8 +23,6 @@ function TextInput({
   containerClass,
   inputClass,
   labelClass,
-  onlyNumeric = false,
-  grouping = false 
 }: Props) {
   return (
     <div className={["flex flex-col gap-2", containerClass].join(" ")}>
@@ -38,7 +34,7 @@ function TextInput({
           type="text"
           id={name}
           name={name}
-          value={e2p(grouping ? s2n(value) : value, { onlyNumeric, useGrouping: grouping })}
+          value={e2p(value)}
           onChange={onChange}
           className={["rounded-md p-1 shadow-md border outline-none", inputClass].join(" ")}
         />
@@ -46,7 +42,7 @@ function TextInput({
         <textarea
           id={name}
           name={name}
-          value={e2p(value, { onlyNumeric, useGrouping: grouping })}
+          value={e2p(value)}
           onChange={onChange}
           className={["rounded-md p-1 shadow-md border outline-none", inputClass].join(" ")}
         />

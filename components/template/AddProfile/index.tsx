@@ -31,15 +31,15 @@ const RADIO_ITEMS = [
 
 function AddProfile() {
   const [profileData, setProfileData] = useState<Profile>(initialState);
-  console.log(profileData.constructionDate);
-  
+
   const changeHandler: React.ChangeEventHandler<
     HTMLTextAreaElement | HTMLInputElement
   > = (e) => {
     const { name, value } = e.target;
+    
     setProfileData((prevData) => ({
       ...prevData,
-      [name]: p2e(value, { onlyNumeric: false }),
+      [name]: p2e(value),
     }));
   };
 
@@ -48,11 +48,24 @@ function AddProfile() {
   };
 
   const datePickerChangeHandler = (date: Date) => {
-    setProfileData(prev => ({...prev, constructionDate: date}))
-  }
+    setProfileData((prev) => ({ ...prev, constructionDate: date }));
+  };
 
-  const submitHandler: React.FormEventHandler = (e) => {
+  const submitHandler: React.MouseEventHandler = async (e) => {
     e.preventDefault();
+    const res = await fetch("/api/profile", {
+      method: "POST",
+      body: JSON.stringify(profileData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+    if (data.error) {
+      console.log(data);
+    } else {
+      console.log("success", data);
+    }
   };
 
   return (
@@ -91,8 +104,6 @@ function AddProfile() {
           name="price"
           onChange={changeHandler}
           value={profileData["price"]}
-          onlyNumeric
-          grouping
         />
         <TextInput
           label="بنگاه"
@@ -104,6 +115,7 @@ function AddProfile() {
           title="دسته بندی"
           items={RADIO_ITEMS}
           onChange={changeHandler}
+          value={profileData["category"]}
         />
         <TextList
           label="امکانات رفاهی"
@@ -117,8 +129,22 @@ function AddProfile() {
           values={profileData["rules"]}
           onChange={textListChangeHandler}
         />
-        <CustomDatePicker value={profileData["constructionDate"]} onChange={datePickerChangeHandler} />
-        <button className="text-white bg-blue-800 border border-blue-800 py-1 px-2 mt-4 rounded-md w-full transition hover:text-blue-800 hover:bg-white">
+        <CustomDatePicker
+          value={profileData["constructionDate"]}
+          onChange={datePickerChangeHandler}
+        />
+        <button
+          onClick={submitHandler}
+          className="text-white bg-blue-800 border border-blue-800 py-1 px-2 mt-4 rounded-md w-full transition disabled:bg-slate-400 disabled:border-slate-500 disabled:text-slate-50 disabled:cursor-not-allowed hover:text-blue-800 hover:bg-white"
+          disabled={!profileData.title ||
+            !profileData.description ||
+            !profileData.address ||
+            !profileData.phone ||
+            !profileData.price ||
+            !profileData.realState ||
+            !profileData.constructionDate ||
+            !profileData.category}
+        >
           ثبت آگهی
         </button>
       </div>

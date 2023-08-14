@@ -1,52 +1,14 @@
-const DEFAULT_OPTIONS = {
-  onlyNumeric: true,
+const e2p = (s: string) => s.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[+d]);
+
+const p2e = (s: string) =>
+  s.toString().replace(/[۰-۹]/g, (d) => [..."۰۱۲۳۴۵۶۷۸۹"].indexOf(d).toString());
+
+const sp = (number: number) => {
+  const seperatedNumber = number
+    .toString()
+    .match(/(\d+?)(?=(\d{3})+(?!\d)|$)/g);
+  const joinedNumber = seperatedNumber.join(",");
+  return e2p(joinedNumber);
 };
 
-const PERSIAN_DIGITS = "۰۱۲۳۴۵۶۷۸۹";
-
-export const e2p = (
-  str: string,
-  options: {
-    onlyNumeric: boolean;
-    useGrouping?: boolean
-  } = {...DEFAULT_OPTIONS, useGrouping: false}
-) => {
-  if (options.onlyNumeric) {
-    // - method 1
-      return BigInt((str).replaceAll("٬", "")).toLocaleString("fa-IR", { useGrouping: options.useGrouping });
-    // - method 2
-    // return [...str].map((digit) => PERSIAN_DIGITS[+digit]).join("");
-  } else {
-    return [...str]
-      .map((char) =>
-        "0123456789".includes(char) ? PERSIAN_DIGITS[+char] : char
-      )
-      .join("");
-  }
-};
-
-export const p2e = (
-  str: string,
-  options: {
-    onlyNumeric: boolean;
-  } = DEFAULT_OPTIONS
-) => {
-  const digitsMap: {[irDigit: string]: string | number} = {};
-
-  [...PERSIAN_DIGITS].forEach((irDigit, enDigit) => {
-    digitsMap[irDigit] = enDigit;
-  });
-
-  if (options.onlyNumeric) {
-    return [...str].map((irDigit) => digitsMap[irDigit]).join("");
-  } else {
-    return [...str]
-      .map((char) => (PERSIAN_DIGITS.includes(char) ? digitsMap[char] : char))
-      .join("");
-  }
-};
-
-
-export const s2n = (str: string) => {
-  return [...str].filter(char => /\d/.test(char)).join("")
-}
+export { e2p, p2e, sp };

@@ -93,6 +93,7 @@ export async function POST(req: NextRequest) {
       }
     );
   } catch (e) {
+    console.log(e)
     return NextResponse.json(
       {
         error: "خطایی در سرور رخ داده است",
