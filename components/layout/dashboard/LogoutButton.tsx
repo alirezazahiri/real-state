@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { FiLogOut } from "react-icons/fi";
 import { signOut } from "next-auth/react";
-import { ThreeDots } from "react-loader-spinner";
 
 function LogoutButton() {
   const clickHandler = async () => {

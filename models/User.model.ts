@@ -16,4 +16,8 @@ const UserSchema = new Schema(
 
 const UserModel = models.User ?? model("User", UserSchema);
 
+export type TUserSchema = {
+  email: string,
+  password: string,
+};
 export default UserModel;

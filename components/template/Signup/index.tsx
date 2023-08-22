@@ -11,7 +11,7 @@ import React, {
 } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { ThreeDots } from "react-loader-spinner";
+import LoadingTD from "@/components/module/LoadingTD";
 
 function Signup() {
   const [email, setEmail] = useState<string>("");
@@ -92,13 +92,7 @@ function Signup() {
           />
         </div>
         {loading ? (
-          <ThreeDots
-            color="#304ffe"
-            height={45}
-            ariaLabel="three-dots-loading"
-            visible={true}
-            wrapperClass="mx-auto"
-          />
+          <LoadingTD />
         ) : (
           <button
             type="submit"

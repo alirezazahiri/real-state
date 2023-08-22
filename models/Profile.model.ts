@@ -61,4 +61,21 @@ const ProfileSchema = new Schema(
 
 const ProfileModel = models.Profile ?? model("Profile", ProfileSchema);
 
+export type TProfileSchema = {
+  _id: string;
+  title: string;
+  description: string;
+  address: string;
+  phone: string;
+  price: number;
+  realState: string;
+  constructionDate: string;
+  category: string;
+  amenities: string[];
+  rules: string[];
+  author: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+};
 export default ProfileModel;
