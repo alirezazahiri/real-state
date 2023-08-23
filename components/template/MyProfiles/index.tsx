@@ -1,46 +1,48 @@
-"use client";
-
-import LoadingTD from "@/components/module/LoadingTD";
 import ProfileCard from "@/components/module/ProfileCard";
-import { IProfileSchema, IUserSchema } from "@models";
-import React, { useEffect, useState } from "react";
+import UserModel from "@/models/User.model";
+import { authOptions } from "@/utils/auth.options";
+import { getServerSession } from "next-auth";
+import React from "react";
+import { Toaster } from "react-hot-toast";
 
-function MyProfiles() {
-  const [user, setUser] = useState<IUserSchema&{profiles: IProfileSchema[]} | null>(null);
-  const [loading, setLoading] = useState(true);
-  console.log(user?.profiles);
-
-  useEffect(() => {
-    setLoading(true);
-    const fetchData = async () => {
-      const res = await fetch("/api/profile/list");
-      const data = await res.json();
-      setUser(data.user);
-      setLoading(false);
-    };
-    fetchData();
-  }, []);
+async function MyProfiles() {
+  const session = await getServerSession(authOptions);
+  const [user] = await UserModel.aggregate([
+    { $match: { email: session?.user.email } },
+    {
+      $lookup: {
+        from: "profiles",
+        foreignField: "author",
+        localField: "_id",
+        as: "profiles",
+      },
+    },
+  ]);
 
   return (
-    <div>
-      {loading ? (
-        <div className="flex justify-center">
-          <LoadingTD />
-        </div>
-      ) : (
+    <>
+      <div>
         <div className="flex flex-col gap-3">
-          {user?.profiles?.map(({ _id, address, category, title }) => (
-            <ProfileCard
-              key={_id}
-              address={address}
-              category={category}
-              title={title}
-              username={user.email}
-            />
-          ))}
+          {user?.profiles.length ? (
+            user?.profiles?.map(({ _id, address, category, title, price }) => (
+              <ProfileCard
+                key={_id}
+                id={_id}
+                address={address}
+                category={category}
+                title={title}
+                price={price}
+              />
+            ))
+          ) : (
+            <p className="text-red-600 bg-red-100 rounded-md p-2 font-semibold">
+              هیچ آگهی ثبت نشده است
+            </p>
+          )}
         </div>
-      )}
-    </div>
+      </div>
+      <Toaster position="top-center" />
+    </>
   );
 }
 

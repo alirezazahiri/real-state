@@ -1,6 +1,5 @@
 import ProfileModel from "@/models/Profile.model";
 import UserModel from "@/models/User.model";
-import { authOptions } from "@/utils/auth.options";
 import connectDB from "@/utils/connectDB";
 import { Types } from "mongoose";
 import { getServerSession } from "next-auth";

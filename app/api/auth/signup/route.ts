@@ -31,9 +31,12 @@ export async function POST(req: NextRequest) {
 
     await UserModel.create({ email, password: hashedPassword });
 
-    return NextResponse.json({ message: "حساب کاربری با موفقیت ایجاد شد" }, {status: 201});
-  } catch (error) {
-    console.log((error as Error).message);
+    return NextResponse.json(
+      { message: "حساب کاربری با موفقیت ایجاد شد" },
+      { status: 201 }
+    );
+  } catch (e) {
+    console.log(e);
 
     return NextResponse.json(
       {

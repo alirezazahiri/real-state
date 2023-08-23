@@ -4,6 +4,7 @@ enum Category {
   villa = "villa",
   apartment = "apartment",
   store = "store",
+  office = "office",
 }
 
 const ProfileSchema = new Schema(
