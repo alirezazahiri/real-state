@@ -1,9 +1,5 @@
-import Image from "next/image";
+import Home from "@/components/template/Home";
 
-export default function Home() {
-  return (
-    <>
-      <h1>سلام</h1>
-    </>
-  );
+export default function HomePage() {
+  return <Home />;
 }

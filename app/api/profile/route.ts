@@ -1,6 +1,7 @@
 import ProfileModel from "@/models/Profile.model";
 import UserModel from "@/models/User.model";
 import connectDB from "@/utils/connectDB";
+import { Profile } from "@profile";
 import { Types } from "mongoose";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
@@ -92,12 +93,49 @@ export async function POST(req: NextRequest) {
       }
     );
   } catch (e) {
-    console.log(e)
+    console.log(e);
     return NextResponse.json(
       {
         error: "خطایی در سرور رخ داده است",
       },
       { status: 500 }
+    );
+  }
+}
+
+export async function GET(req: NextRequest) {
+  try {
+    await connectDB();
+
+    const { searchParams } = new URL(req.url);
+    const category = searchParams.has("category")
+      ? searchParams.get("category")
+      : null;
+
+    let profiles: Profile[];
+    if (category)
+      profiles = await ProfileModel.find({ category }, { __v: 0, author: 0 });
+    else profiles = await ProfileModel.find({}, { __v: 0, author: 0 });
+
+    return NextResponse.json(
+      {
+        message: "آگهی ها با موفقیت دریافت شدند",
+        profiles,
+      },
+      {
+        status: 200,
+      }
+    );
+  } catch (error) {
+    console.log(error);
+
+    return NextResponse.json(
+      {
+        error: "خطایی در سرور رخ داده است",
+      },
+      {
+        status: 500,
+      }
     );
   }
 }
