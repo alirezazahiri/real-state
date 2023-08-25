@@ -9,13 +9,12 @@ export const metadata = {
   icons: { icon: "./favicon.ico" },
 };
 
-export default function Layout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fa" dir="rtl">
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+      </head>
       <body
         className={[
           YekanBakhFont.className,

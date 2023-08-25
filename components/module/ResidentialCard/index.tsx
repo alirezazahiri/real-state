@@ -2,7 +2,7 @@ import { icons } from "@/utils/icons";
 import { IProfileSchema } from "@models";
 import React from "react";
 import { TfiLocationPin } from "react-icons/tfi";
-import { RiPriceTagLine } from "react-icons/ri";
+import { ImPriceTags } from "react-icons/im";
 import { BiLeftArrowAlt } from "react-icons/bi";
 import { sp } from "@/utils/number.utils";
 import Link from "next/link";
@@ -26,16 +26,16 @@ function ResidentialCard({ address, category, id, price, title }: Props) {
           </span>
           {address}
         </p>
-        <p className="flex gap-1 text-sm items-center">
-          <span className="font-semibold text-base flex gap-1 text-slate-500">
-            <RiPriceTagLine />
+        <p className="flex gap-1 text-sm items-center text-slate-500">
+          <span className="font-semibold text-base flex gap-1">
+            <ImPriceTags />
           </span>
           {sp(price)} تومان
         </p>
       </div>
       <Link
         href={`/buy-residential/${id}`}
-        className="text-blue-600 flex justify-between items-center mt-auto"
+        className="text-blue-600 flex justify-between items-center mt-auto hover:underline hover:underline-offset-4"
       >
         مشاهده آگهی
         <BiLeftArrowAlt className="text-lg" />

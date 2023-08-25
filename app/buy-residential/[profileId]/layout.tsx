@@ -2,7 +2,7 @@ import React from "react";
 import { ReactNode } from "react";
 
 export const metadata = {
-  title: "آگهی ها",
+  title: "جزئیات آگهی",
   description: "سایت خرید و فروش املاک",
   icons: { icon: "./favicon.ico" },
 };

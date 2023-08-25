@@ -7,7 +7,7 @@ import { BsCircle } from "react-icons/bs";
 function Home() {
   return (
     <div>
-      <section className="Banner flex flex-col items-center gap-6 py-20">
+      <section className="flex flex-col items-center gap-6 py-20">
         <h1 className="text-blue-600 text-3xl font-bold">
           سامانه خرید و اجاره ملک
         </h1>
@@ -23,16 +23,18 @@ function Home() {
           ))}
         </ul>
       </section>
-      <section className="Cards grid grid-cols-2 md:grid-cols-4 gap-4">
-        {CATEGORIES.map((item) => (
-          <CategoryCard key={item.category} {...item} />
-        ))}
+      <section className="mx-auto w-fit">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {CATEGORIES.map((item) => (
+            <CategoryCard key={item.category} {...item} />
+          ))}
+        </div>
       </section>
-      <section className="Banner flex flex-col items-center gap-6 py-20">
+      <section className="flex flex-col items-center gap-6 py-20">
         <h2 className="text-blue-600 text-xl font-semibold">
           شهرهای پر بازدید
         </h2>
-        <ul className="grid grid-cols-4 gap-2 w-full">
+        <ul className="grid grid-cols-2 lg:grid-cols-4 gap-2 w-8/12">
           {CITIES.map((city) => (
             <li
               key={city}

@@ -1,3 +1,4 @@
+import BuyResidentialLayout from "@/components/layout/buy-residential";
 import BuyResidentials from "@/components/template/BuyResidentials";
 import React from "react";
 
@@ -6,7 +7,11 @@ function BuyResidentialsPage({
 }: {
   searchParams: { category?: string };
 }) {
-  return <BuyResidentials category={searchParams?.category} />;
+  return (
+    <BuyResidentialLayout>
+      <BuyResidentials category={searchParams?.category} />
+    </BuyResidentialLayout>
+  );
 }
 
 export default BuyResidentialsPage;

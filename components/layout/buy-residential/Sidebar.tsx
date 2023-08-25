@@ -22,6 +22,7 @@ function Sidebar() {
               href={`/buy-residential${
                 category ? `?category=${category}` : ""
               }`}
+              key={title}
             >
               <li
                 className={`hover:underline hover:underline-offset-4 bg-slate-100 rounded-full p-1 px-3 w-fit ${

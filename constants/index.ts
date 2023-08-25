@@ -22,3 +22,10 @@ export const CATEGORIES = [
   { title: "مغازه", category: "store" },
   { title: "دفتر", category: "office" },
 ];
+
+export const CATEGORIES_TRANSLATE = {
+  "villa": "ویلا",
+  "apartment": "آپارتمان",
+  "store": "مغازه",
+  "office": "دفتر",
+};
