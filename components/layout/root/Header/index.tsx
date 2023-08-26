@@ -1,8 +1,6 @@
-import Link from "next/link";
 import React from "react";
-import { FiLogIn } from "react-icons/fi";
 import BurgerMenu from "./BurgerMenu";
-import LoginButton from "./LogInButton";
+import LoginButton from "./LoginButton";
 
 const links = [
   { href: "/", name: "صفحه اصلی" },
