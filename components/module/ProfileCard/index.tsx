@@ -12,29 +12,58 @@ import { AiOutlineEye } from "react-icons/ai";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { MdOutlinePublish } from "react-icons/md";
 
 interface Props
   extends Pick<IProfileSchema, "category" | "title" | "address" | "price"> {
   id: string;
+  isAdmin?: boolean;
+  published?: boolean;
 }
 
-function ProfileCard({ id, category, title, address, price }: Props) {
+function ProfileCard({
+  id,
+  category,
+  title,
+  address,
+  price,
+  isAdmin,
+  published,
+}: Props) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [publishLoading, setPublishLoading] = useState(false);
 
   const deleteHandler: React.EventHandler<
     React.MouseEvent<HTMLButtonElement>
   > = async (e) => {
-    setLoading(true);
+    setDeleteLoading(true);
     const res = await fetch(`/api/profile/${id}`, {
       method: "DELETE",
     });
     const data = await res.json();
-    setLoading(false);
+    setDeleteLoading(false);
     if (data.error) {
       toast.error(data.error);
     } else {
-      toast.success(data.message);      
+      toast.success(data.message);
+      router.refresh();
+    }
+  };
+
+  const publishHandler: React.EventHandler<
+    React.MouseEvent<HTMLButtonElement>
+  > = async (e) => {
+    setPublishLoading(true);
+    const res = await fetch(`/api/profile/${id}/publish`, {
+      method: "POST",
+    });
+    const data = await res.json();
+    setPublishLoading(false);
+    if (data.error) {
+      toast.error(data.error);
+    } else {
+      toast.success(data.message);
       router.refresh();
     }
   };
@@ -45,7 +74,16 @@ function ProfileCard({ id, category, title, address, price }: Props) {
         <span className="font-semibold text-xl bg-blue-100 w-fit p-1 rounded-sm ">
           {icons[category]}
         </span>
-        <h2 className="font-bold text-lg">{title}</h2>
+        <div className="flex gap-1 items-center">
+          <h2 className="font-bold text-lg">{title}</h2>
+          {published ? (
+            <span className="px-1 text-xs flex items-center font-semibold text-white bg-green-400 rounded-full">
+              منتشر شده
+            </span>
+          ) : (
+            <span className="px-1 text-xs flex items-center font-semibold text-white bg-yellow-400 rounded-full">در انتظار تایید</span>
+          )}
+        </div>
         <p className="flex gap-1 text-sm items-center">
           <span className="font-semibold text-base flex gap-1">
             <TfiLocationPin />
@@ -63,7 +101,7 @@ function ProfileCard({ id, category, title, address, price }: Props) {
       </div>
       <div className="flex md:flex-col gap-2 basis-1/2 justify-start">
         <Link
-          href={`/dashboard/my-profiles/${id}`}
+          href={`/buy-residential/${id}`}
           className="flex gap-1 items-center justify-center rounded-md border border-blue-400 hover:bg-white hover:text-blue-400 transition bg-blue-400 text-white p-1"
         >
           مشاهده
@@ -76,12 +114,28 @@ function ProfileCard({ id, category, title, address, price }: Props) {
           ویرایش
           <FiEdit />
         </Link>
+        {isAdmin && (
+          <button
+            onClick={publishHandler}
+            className="flex gap-1 items-center justify-center rounded-md border border-purple-400 hover:bg-white hover:text-purple-400 transition bg-purple-400 disabled:cursor-not-allowed text-white p-1"
+            disabled={publishLoading}
+          >
+            {publishLoading ? (
+              "در حال منتشر کردن..."
+            ) : (
+              <>
+                انتشار
+                <MdOutlinePublish />
+              </>
+            )}
+          </button>
+        )}
         <button
           onClick={deleteHandler}
           className="flex gap-1 items-center justify-center rounded-md border border-red-400 hover:bg-white hover:text-red-400 transition bg-red-400 disabled:cursor-not-allowed text-white p-1"
-          disabled={loading}
+          disabled={deleteLoading}
         >
-          {loading ? (
+          {deleteLoading ? (
             "در حال حذف کردن..."
           ) : (
             <>

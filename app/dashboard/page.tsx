@@ -10,10 +10,22 @@ async function DashboardPage() {
   const session = await getServerSession(authOptions);
   if (!session) redirect("/signin");
 
-  const user = await UserModel.findOne({email: session.user.email})
+  const user = await UserModel.findOne(
+    { email: session.user.email },
+    { createdAt: 1 }
+  );
+
+  if (!user)
+    return (
+      <h3 className="bg-red-100 text-red-500 rounded-md p-2 font-semibold">
+        مشکلی پیش آمده است
+      </h3>
+    );
 
   return (
-    <Dashboard createdAt={new Date(user.createdAt).toLocaleDateString("fa-IR")} />
+    <Dashboard
+      createdAt={new Date(user.createdAt).toLocaleDateString("fa-IR")}
+    />
   );
 }
 

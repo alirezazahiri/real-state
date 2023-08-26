@@ -114,8 +114,15 @@ export async function GET(req: NextRequest) {
 
     let profiles: Profile[];
     if (category)
-      profiles = await ProfileModel.find({ category }, { __v: 0, author: 0 });
-    else profiles = await ProfileModel.find({}, { __v: 0, author: 0 });
+      profiles = await ProfileModel.find(
+        { category, published: true },
+        { __v: 0, author: 0 }
+      );
+    else
+      profiles = await ProfileModel.find(
+        { published: true },
+        { __v: 0, author: 0 }
+      );
 
     return NextResponse.json(
       {

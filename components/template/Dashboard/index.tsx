@@ -1,6 +1,10 @@
 import React from "react";
 
-function Dashboard({ createdAt }: { createdAt: string }) {
+interface Props {
+  createdAt: string;
+}
+
+function Dashboard({ createdAt }: Props) {
   return (
     <div className="flex flex-col gap-20">
       <div>

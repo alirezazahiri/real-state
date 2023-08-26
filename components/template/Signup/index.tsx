@@ -30,8 +30,11 @@ function Signup() {
   const submitHandler = async (e: FormEvent) => {
     setLoading(true);
     e.preventDefault();
-    if (password !== confirmPassword)
-      return toast.error("رمز و تکرار آن یکسان نیستند.");
+    if (password !== confirmPassword) {
+      toast.error("رمز و تکرار آن یکسان نیستند.");
+      setLoading(false);
+      return;
+    }
 
     const res = await fetch("/api/auth/signup", {
       method: "POST",
@@ -42,6 +45,7 @@ function Signup() {
     });
 
     const data = await res.json();
+    setLoading(false);
 
     if (res.status == 201) {
       router.push("/signin");
@@ -49,7 +53,6 @@ function Signup() {
     } else {
       toast.error(data.error);
     }
-    setLoading(false);
   };
 
   return (

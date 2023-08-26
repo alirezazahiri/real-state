@@ -1,5 +1,10 @@
 import { Schema, model, models } from "mongoose";
 
+export enum Role {
+  USER = "USER",
+  ADMIN = "ADMIN",
+}
+
 const UserSchema = new Schema(
   {
     email: {
@@ -10,6 +15,11 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
+    role: {
+      type: String,
+      enum: Role,
+      default: Role.USER,
+    },
   },
   { timestamps: true }
 );
@@ -17,7 +27,8 @@ const UserSchema = new Schema(
 const UserModel = models.User ?? model("User", UserSchema);
 
 export type TUserSchema = {
-  email: string,
-  password: string,
+  email: string;
+  password: string;
+  role: Role;
 };
 export default UserModel;

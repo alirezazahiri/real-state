@@ -54,6 +54,10 @@ const ProfileSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
+    published: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
@@ -77,6 +81,7 @@ export type TProfileSchema = {
   author: string;
   createdAt: string;
   updatedAt: string;
+  published: boolean;
   __v: number;
 };
 export default ProfileModel;

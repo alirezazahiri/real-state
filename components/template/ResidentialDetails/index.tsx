@@ -7,6 +7,8 @@ interface Props {
   description: string;
   amenities: string[];
   rules: string[];
+  published: boolean;
+  isAdmin: boolean;
 }
 
 function ResidentialDetails({
@@ -15,11 +17,28 @@ function ResidentialDetails({
   description,
   amenities,
   rules,
+  published,
+  isAdmin,
 }: Props) {
   return (
     <section className="flex flex-col gap-8">
       <div className="flex flex-col gap-2">
-        <h2 className="font-semibold text-lg text-blue-700">{title}</h2>
+        <div className="flex gap-1 items-center">
+          <h2 className="font-semibold text-lg text-blue-700">{title}</h2>
+          {isAdmin ? (
+            published ? (
+              <span className="px-1 text-xs flex items-center font-semibold text-white bg-green-400 rounded-full">
+                منتشر شده
+              </span>
+            ) : (
+              <span className="px-1 text-xs flex items-center font-semibold text-white bg-yellow-400 rounded-full">
+                در انتظار تایید
+              </span>
+            )
+          ) : (
+            <></>
+          )}
+        </div>
         <p className="flex gap-1 text-slate-500">
           <TfiLocationPin />
           {address}
