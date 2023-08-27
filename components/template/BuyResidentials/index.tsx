@@ -12,7 +12,7 @@ async function getData(
   category?: string
 ): Promise<{ message?: string; error?: string; profiles?: IProfileSchema[] }> {
   const res = await fetch(
-    `http://localhost:3000/api/profile${
+    `${process.env.BASE_URL}/api/profile${
       category ? `?category=${category}` : ""
     }`,
     {
