@@ -1,3 +1,4 @@
+import Prompt from "@/components/module/Prompt";
 import Dashboard from "@/components/template/Dashboard";
 import UserModel from "@/models/User.model";
 import { authOptions } from "@/utils/auth.options";
@@ -15,12 +16,7 @@ async function DashboardPage() {
     { createdAt: 1 }
   );
 
-  if (!user)
-    return (
-      <h3 className="bg-red-100 text-red-500 rounded-md p-2 font-semibold">
-        مشکلی پیش آمده است
-      </h3>
-    );
+  if (!user) return <Prompt color="red" message="مشکلی پیش آمده است" />;
 
   return (
     <Dashboard

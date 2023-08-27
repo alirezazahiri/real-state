@@ -8,6 +8,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/auth.options";
 import UserModel, { Role } from "@/models/User.model";
 import { data } from "autoprefixer";
+import Prompt from "@/components/module/Prompt";
 
 interface Props {
   params: { profileId: string };
@@ -34,12 +35,7 @@ async function getData(
 async function ResidentialDetailsPage({ params: { profileId } }: Props) {
   const data = await getData(profileId);
 
-  if (!data)
-    return (
-      <h3 className="bg-red-100 text-red-500 rounded-md p-2 font-semibold mt-4">
-        مشکلی پیش آمده است
-      </h3>
-    );
+  if (!data) return <Prompt color="red" message="مشکلی پیش آمده است" />;
 
   const {
     title,

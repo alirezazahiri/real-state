@@ -1,3 +1,4 @@
+import Prompt from "@/components/module/Prompt";
 import EditProfile from "@/components/template/EditProfile";
 import ProfileModel from "@/models/Profile.model";
 import UserModel from "@/models/User.model";
@@ -20,7 +21,10 @@ async function ProfileEditPage({ params }: Props) {
   );
   if (!profile)
     return (
-      <h3>مشکلی در پیدا کردن آگهی پیش آمده است، لطفا دوباره تلاش کنید...</h3>
+      <Prompt
+        color="red"
+        message="مشکلی در پیدا کردن آگهی پیش آمده است، لطفا دوباره تلاش کنید..."
+      />
     );
 
   return (

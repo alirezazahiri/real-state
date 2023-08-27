@@ -1,4 +1,6 @@
 import ProfileCard from "@/components/module/ProfileCard";
+import Prompt from "@/components/module/Prompt";
+import RefreshButton from "@/components/module/RefreshButton";
 import UserModel from "@/models/User.model";
 import { authOptions } from "@/utils/auth.options";
 import connectDB from "@/utils/connectDB";
@@ -34,12 +36,7 @@ async function getData(): Promise<{
 async function MyProfiles() {
   const { error, user } = await getData();
 
-  if (error)
-    return (
-      <h3 className="bg-red-100 text-red-500 rounded-md p-2 font-semibold">
-        {error}
-      </h3>
-    );
+  if (error) return <Prompt color="red" message={error} />;
 
   return (
     <>
@@ -60,9 +57,13 @@ async function MyProfiles() {
               )
             )
           ) : (
-            <p className="text-red-600 bg-red-100 rounded-md p-2 font-semibold">
-              هیچ آگهی ثبت نشده است
-            </p>
+            <div className="flex flex-col gap-4 items-center w-full">
+              <Prompt
+                color="red"
+                message="هیچ آگهی ثبت نشده است"
+              />
+              <RefreshButton />
+            </div>
           )}
         </div>
       </div>

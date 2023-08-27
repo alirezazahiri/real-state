@@ -1,3 +1,4 @@
+import Prompt from "@/components/module/Prompt";
 import ResidentialCard from "@/components/module/ResidentialCard";
 // import ProfileModel from "@/models/Profile.model";
 import { IProfileSchema } from "@models";
@@ -35,12 +36,7 @@ async function getData(
 async function BuyResidentials({ category }: Props) {
   const data = await getData(category);
 
-  if (data.error)
-    return (
-      <h3 className="bg-red-100 text-red-500 rounded-md p-2 font-semibold">
-        {data.error}
-      </h3>
-    );
+  if (data.error) return <Prompt color="red" message={data.error} />;
 
   if (data?.profiles.length)
     return (

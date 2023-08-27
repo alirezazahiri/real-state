@@ -5,6 +5,7 @@ import { CgProfile } from "react-icons/cg";
 import LogoutButton from "./LogoutButton";
 import connectDB from "@/utils/connectDB";
 import UserModel, { Role } from "@/models/User.model";
+import Prompt from "@/components/module/Prompt";
 
 async function Sidebar() {
   const session = await getServerSession();
@@ -15,12 +16,7 @@ async function Sidebar() {
     { role: 1 }
   );
 
-  if (!user)
-    return (
-      <h3 className="bg-red-100 text-red-500 rounded-md p-2 font-semibold">
-        مشکلی پیش آمده است
-      </h3>
-    );
+  if (!user) return <Prompt color="red" message="مشکلی پیش آمده است" />;
 
   const { role } = user;
 

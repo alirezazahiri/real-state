@@ -137,6 +137,7 @@ export async function PATCH(req: NextRequest, { params }: Options) {
         amenities,
         rules,
         price: +price,
+        published: false,
       }
     );
 

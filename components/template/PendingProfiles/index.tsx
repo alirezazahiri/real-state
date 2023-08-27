@@ -1,4 +1,6 @@
 import ProfileCard from "@/components/module/ProfileCard";
+import Prompt from "@/components/module/Prompt";
+import RefreshButton from "@/components/module/RefreshButton";
 import ProfileModel from "@/models/Profile.model";
 import UserModel, { Role } from "@/models/User.model";
 import { authOptions } from "@/utils/auth.options";
@@ -25,12 +27,7 @@ async function getData(): Promise<{
 async function PendingProfiles() {
   const { error, profiles } = await getData();
 
-  if (error)
-    return (
-      <h3 className="bg-red-100 text-red-500 rounded-md p-2 font-semibold">
-        {error}
-      </h3>
-    );
+  if (error) return <Prompt color="red" message={error} />;
 
   return (
     <>
@@ -49,9 +46,13 @@ async function PendingProfiles() {
               />
             ))
           ) : (
-            <p className="text-red-600 bg-red-100 rounded-md p-2 font-semibold">
-              هیچ آگهی در انتظار تاییدی وجود ندارد
-            </p>
+            <div className="flex flex-col gap-4 items-center w-full">
+              <Prompt
+                color="red"
+                message="هیچ آگهی در انتظار تاییدی وجود ندارد"
+              />
+              <RefreshButton />
+            </div>
           )}
         </div>
       </div>
