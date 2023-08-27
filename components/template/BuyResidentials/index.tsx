@@ -44,7 +44,7 @@ async function BuyResidentials({ category }: Props) {
 
   if (data?.profiles.length)
     return (
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 gap-x-20">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-x-20 gap-x-10">
         {data.profiles.map(({ _id, address, category, price, title }) => (
           <ResidentialCard
             key={_id}

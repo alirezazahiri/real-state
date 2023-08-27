@@ -18,7 +18,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <body
         className={[
           YekanBakhFont.className,
-          "container mx-auto lg:max-w-[1200px] bg-slate-100",
+          "container mx-auto lg:max-w-[1200px] bg-slate-100 px-1 lg:px-0",
         ].join(" ")}
       >
         <NextAuthProvider>
